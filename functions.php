@@ -58,4 +58,44 @@ function learning_enqueue_scripts(){
 
 add_action( 'wp_enqueue_scripts', 'learning_enqueue_scripts');
 
+
+//new custom post
+
+function custom_post(){
+
+	$custpost = array(
+		'name'			 	 => _x('Custom Posts',''),
+		'singular_name'  	 => _x('Custom Post',''),
+		'all_items' 	 	 => __('Custom Posts'),
+		'add_new' 		 	 => _x('Add New Posts',''),
+		'add_new_item'   	 => __('Add New Post'),
+		'edit_item' 	 	 => __('Edit Post'),
+		'new_item' 		 	 => __('New Custom Post'),
+		'view_item' 	 	 => __('View Custom Posts'),
+		'search_items' 	 	 => __('Search in Posts'),
+		'not_found'		 	 => __('No Post Found'),
+		'not_found_in_trash' => __('No Post Found in Trash'),
+		'parent_item_colon'  => ''
+		);
+
+	$args = array(
+        'labels' => $custpost,
+        'public' => true,
+        'publicly_queryable' => true,
+        'show_ui' => true,
+        'query_var' => true,
+         'rewrite' => array( 'slug'=>'custom', 'with_front'=> false, 'feed'=> true, 'pages'=> true),
+        'capability_type' => 'post',
+        'hierarchical' => true,
+        'menu_position' => 5,
+        'supports' => array('title','editor','author','thumbnail','excerpt'),
+     
+        'has_archive' => true
+    );
+    register_post_type('custom_post',$args);
+}
+
+add_action('init', 'custom_post');
+
+
  ?>
